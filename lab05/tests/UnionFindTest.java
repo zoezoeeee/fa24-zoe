@@ -86,6 +86,44 @@ public class UnionFindTest {
      * of all methods in your implementation.
      */
 
+    @Test
+    public void findTest() {
+        UnionFind uf = new UnionFind(8);
+        uf.union(1,2);
+        assertThat(uf.find(1)).isEqualTo(2);
+        assertThat(uf.find(2)).isEqualTo(2);
+        assertThat(uf.find(3)).isEqualTo(3);
+
+        uf.union(1,3);
+        assertThat(uf.find(1)).isEqualTo(2);
+        assertThat(uf.find(2)).isEqualTo(2);
+        assertThat(uf.find(3)).isEqualTo(2);
+    }
+
+    @Test
+    public void sizeOfTest() {
+        UnionFind uf = new UnionFind(8);
+        uf.union(1,2);
+        assertThat(uf.sizeOf(1)).isEqualTo(2);
+        assertThat(uf.sizeOf(2)).isEqualTo(2);
+        assertThat(uf.sizeOf(3)).isEqualTo(1);
+
+        uf.union(1,3);
+        assertThat(uf.sizeOf(1)).isEqualTo(3);
+        assertThat(uf.sizeOf(2)).isEqualTo(3);
+        assertThat(uf.sizeOf(3)).isEqualTo(3);
+    }
+
+    @Test
+    public void compressionTest() {
+        UnionFind uf = new UnionFind(8);
+        uf.union(1,2);
+        uf.union(3,4);
+        uf.union(1,3);
+        uf.find(1);
+        uf.find(2);
+        assertThat(uf.parent(1)).isEqualTo(4);
+    }
 }
 
 
