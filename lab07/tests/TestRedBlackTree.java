@@ -288,9 +288,9 @@ public class TestRedBlackTree {
         // right.right
         assertThat(rbtree.root.right.right).isNull();
 
-        assertWithMessage("Number of Calls to Flip Colors after inserting (10, 7, 5) in order").that(callsToFlipColors).isEqualTo(1);
-        assertWithMessage("Number of Calls to Rotate Left after inserting (10, 7, 5) in order").that(callsToRotateLeft).isEqualTo(1);
-        assertWithMessage("Number of Calls to Rotate Right after inserting (10, 7, 5) in order").that(callsToRotateRight).isEqualTo(1);
+        assertWithMessage("Number of Calls to Flip Colors after inserting (10, 5, 7) in order").that(callsToFlipColors).isEqualTo(1);
+        assertWithMessage("Number of Calls to Rotate Left after inserting (10, 5, 7) in order").that(callsToRotateLeft).isEqualTo(1);
+        assertWithMessage("Number of Calls to Rotate Right after inserting (10, 5, 7) in order").that(callsToRotateRight).isEqualTo(1);
     }
 
 
