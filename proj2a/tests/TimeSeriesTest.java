@@ -55,4 +55,44 @@ public class TimeSeriesTest {
         assertThat(totalPopulation.years()).isEmpty();
         assertThat(totalPopulation.data()).isEmpty();
     }
+
+    /**
+     * Returns the quotient of the value for each year this TimeSeries divided by the
+     * value for the same year in TS. Should return a new TimeSeries (does not modify this
+     * TimeSeries).
+     *
+     * If TS is missing a year that exists in this TimeSeries, throw an
+     * IllegalArgumentException.
+     * If TS has a year that is not in this TimeSeries, ignore it.
+     */
+    @Test
+    public void testDivide() {
+        TimeSeries catPopulation = new TimeSeries();
+        catPopulation.put(1991, 100.0);
+        catPopulation.put(1992, 300.0);
+        catPopulation.put(1994, 200.0);
+
+        TimeSeries dogPopulation = new TimeSeries();
+        dogPopulation.put(1991, 200.0);
+        dogPopulation.put(1992, 300.0);
+        dogPopulation.put(1994, 800.0);
+        dogPopulation.put(1995, 500.0);               // Extra year, should be ignored.
+
+        TimeSeries dividedPopulation = catPopulation.dividedBy(dogPopulation);
+        // expected: 1991: 1/2
+        //           1992: 1
+        //           1994: 1/4
+
+        List<Integer> expectedYears = new ArrayList<>
+                (Arrays.asList(1991, 1992, 1994));
+
+        assertThat(dividedPopulation.years()).isEqualTo(expectedYears);
+
+        List<Double> expected = new ArrayList<>
+                (Arrays.asList(0.5, 1.0, 0.25));
+
+        for (int i = 0; i < expected.size(); i += 1) {
+            assertThat(dividedPopulation.data().get(i)).isWithin(1E-10).of(expected.get(i));
+        }
+    }
 } 
